@@ -1,5 +1,5 @@
 function [Jb2_bodies] = calculateBodyJacobians2_Mueller(Ci, Ai,  YI_ii,nBodies,nDoF)
-% [6-2-2022]
+% [6-2-2023]
 % Calculates the Jacobians derived from the SECOND (=) of eq.(16) in
 % Mueller Kinematics
 

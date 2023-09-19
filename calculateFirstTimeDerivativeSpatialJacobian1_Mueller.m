@@ -1,5 +1,5 @@
 function [dJs_j_dt] = calculateFirstTimeDerivativeSpatialJacobian1_Mueller(Js,dq)
-% Implements the FIRST (=) of eq.(8) in Mueller Dynamics
+% Implements the FIRST (=) of eq.(17) in Mueller Dynamics
 % Jb_ij, where i denotes the body of the manipulator the Body Jacobian
 % relates to and j the current joint variable counter
 
