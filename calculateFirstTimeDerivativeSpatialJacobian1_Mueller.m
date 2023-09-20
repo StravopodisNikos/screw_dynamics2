@@ -9,7 +9,7 @@ dJs_j = sym(zeros(6,nDoF),'d');
 for j=1:nDoF
     dJ = sym(zeros(6,1),'d');
     for k=1:j
-        dJ = dJ + liebracket_426_new(Js(:,k), Js(:,j)) * dq(k);
+        dJ = dJ + liebracket_426_new2(Js(:,k), Js(:,j)) * dq(k);
     end
     dJs_j(:,j) = dJ;
 end
