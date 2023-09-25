@@ -31,14 +31,15 @@ end
 field2 = 'Bi'; value2 = Bi;
 %% YI_i
 for i=1:nDoF
-    YI_i(:,i) = s_murray.xi_ai(:,i);
-%     YI_i(1:3,i) = s_murray.xi_ai(4:6,i);
-%     YI_i(4:6,i) = s_murray.xi_ai(1:3,i);
+%     YI_i(:,i) = s_murray.xi_ai(:,i);
+    YI_i(1:3,i) = s_murray.xi_ai(4:6,i);
+    YI_i(4:6,i) = s_murray.xi_ai(1:3,i);
 end
 field3 = 'YI_i'; value3 = YI_i;
 %% XI_ii
 for i=1:nDoF
-    XI_ii(:,i) = ad(inv(Ai(:,:,i)))*YI_i(:,i);
+%     XI_ii(:,i) = ad(inv(Ai(:,:,i)))*YI_i(:,i);
+    XI_ii(1:3,i) = ad(inv(Ai(:,:,i)))*YI_i(:,i);
 end
 XI_ii(:,nDoF+1) = [Bi(1:3,4,nDoF+1); vee(Bi(1:3,1:3,nDoF+1))];
 field4 = 'XI_ii'; value4 = XI_ii;

@@ -1,4 +1,4 @@
-function [Jb2_bodies] = calculateBodyJacobians2_Mueller(Ci, Ai,  YI_ii,nBodies,nDoF)
+function [Jb2_bodies] = calculateBodyJacobians2_Mueller(Ci, Ai,  YI_ii,nBodies,nDoF,USE_SYM)
 % [6-2-2023]
 % Calculates the Jacobians derived from the SECOND (=) of eq.(16) in
 % Mueller Kinematics
@@ -11,14 +11,25 @@ function [Jb2_bodies] = calculateBodyJacobians2_Mueller(Ci, Ai,  YI_ii,nBodies,n
 
 % From the above jacobias Jb_tj_2 is the Body Manipulator Jacobian
 % presented in the Murray Book!
-
-Jb2_bodies = sym(zeros(6,nDoF,nBodies),'r');
-T = sym(zeros(4,4,nDoF),'r');
+if (USE_SYM)
+    Jb2_bodies = sym(zeros(6,nDoF,nBodies),'r');
+    T = sym(zeros(4,4,nDoF),'r');
+else
+    Jb2_bodies = zeros(6,nDoF,nBodies);
+    T = zeros(4,4,nDoF);
+end
 
 for nbod_cnt=1:nBodies
-    for j=1:nDoF
-        T(:,:,j) = calculateTmatrix(Ci(:,:,j), Ai(:,:,j));
-        Jb2_bodies(:,j,nbod_cnt) = simplify(  ad( inv( T(:,:,j) \ Ci(:,:,nbod_cnt) ) ) * YI_ii(:,j)  );    
+    if (USE_SYM)
+        for j=1:nDoF
+            T(:,:,j) = calculateTmatrix(Ci(:,:,j), Ai(:,:,j));
+            Jb2_bodies(:,j,nbod_cnt) = simplify(  ad( inv( T(:,:,j) \ Ci(:,:,nbod_cnt) ) ) * YI_ii(:,j)  );    
+        end
+    else
+        for j=1:nDoF
+            T(:,:,j) = calculateTmatrix(Ci(:,:,j), Ai(:,:,j));
+            Jb2_bodies(:,j,nbod_cnt) = ad( inv( T(:,:,j) \ Ci(:,:,nbod_cnt) ) ) * YI_ii(:,j);    
+        end        
     end
 end
 

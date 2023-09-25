@@ -14,7 +14,7 @@ for j=1:nDoF
     end
     dJs_j1_dt(:,j) = dJ1;
 end
-% Implements the SECOND (=) of eq.(17)
+% Implements the SECOND (=) of eq.(17) -> WRONG ANSWER
 dJs_j2_dt = sym(zeros(6,nDoF),'d');
 for j=1:nDoF
     SJ = sym(zeros(6,1),'d');

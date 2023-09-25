@@ -1,4 +1,4 @@
-function [Vst_s_mul,Vst_b_mul] = calculateVelocityTwists_Mueller(Js,Jb,dq,ndof,USE_SYM)
+function [V_i_s,V_i_b] = calculateVelocityTwists_Mueller(Js,Jb,dq,ndof,USE_SYM)
 % Executes eq.30 in Mueller/Kinematics paper.
 % Input is the spatial jacobians as calculated by mueller
 
@@ -19,7 +19,9 @@ end
 % for i=1:ndof
 %        V_i_b(:,i) = Jb(:,i,4) * dq(i); % {T} frame, that is the '4' Body Jacobian
 % end
+% Jb must be the last Body Jacobian calculated w.r.t {T} frame
+for j=1:4
+   V_i_b(:,i) = Jb(:,j,4) * dq(i); % {T} frame, that is the '4' Body Jacobian
+end
 
-Vst_s_mul = Js * dq;
-Vst_b_mul = Jb * dq;
 end
