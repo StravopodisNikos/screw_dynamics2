@@ -2,8 +2,7 @@ function [dJs_j1_dt, dJs_j2_dt, dJs_j3_dt] = calculateFirstTimeDerivativeSpatial
 % Executes the 3 "=" of eq.17 in Mueller/Dynamics
 % Input: 1. Js as calculated by Mueller eq.28/Kinematics
 %        2. Vs as calculated by Mueller eq.30/Kinematics
-% Updates:
-% [26-9-23] - only first "=" output considered
+
 
 nDoF = size(Js,2);
 

@@ -9,25 +9,21 @@ i = nDoF; % assumes the Jacobian relates to the {T} frame after the last active 
 if (USE_SYM)
     dJb_ij = sym(zeros(6,nDoF),'d');
 else
-    dJb_ij = zeros(6,nDoF);
 end
 
 for j=1:i
-    if (USE_SYM)
-        dJ = sym(zeros(6,1),'d');
-    else
-        dJ = zeros(6,1);
-    end
+    dJ = sym(zeros(6,1),'d');
     for k=j+1:i
         % Adad1,2,3 correspond to each (=) in first part of eq.(8) in Mueller Dynamics Paper
         % The 3rd is used as this is the final one given by Mueller.
 %         Adad1 = simplify( liebracket_426_new(Jb_bodies(:,j,nBodies), Jb_bodies(:,k,nBodies)) );
 %         Adad2 = simplify( ad(inv(Ci(:,:,nBodies)) * Ci(:,:,k) ) * liebracket_426_new(Jb_bodies(:,j,k),XI_ii(:,k)) );
-        Adad3 = - ad(inv(Ci(:,:,nBodies)) * Ci(:,:,k) ) * spatial_cross_product(XI_ii(:,k))* Jb_bodies(:,j,k);
+        Adad3 = simplify(- ad(inv(Ci(:,:,nBodies)) * Ci(:,:,k) ) * spatial_cross_product(XI_ii(:,k))* Jb_bodies(:,j,k) );
         dJ = dJ + (Adad3) * dq(k);
     end
+    
     dJb_ij(:,j) = dJ;
 end
 
-dJb_ij_dt = dJb_ij;
+dJb_ij_dt = simplify(dJb_ij);
 end

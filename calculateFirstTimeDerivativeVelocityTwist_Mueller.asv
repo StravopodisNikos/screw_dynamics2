@@ -1,4 +1,4 @@
-function [dV_i_s_dt1, dV_i_s_dt2, dV_i_b1] = calculateFirstTimeDerivativeVelocityTwist_Mueller(Js,dJs,Jb,dJb,ddq,dq, USE_SYM)
+function [dV_i_s_dt1, dV_i_s_dt2] = calculateFirstTimeDerivativeVelocityTwist_Mueller(Js,dJs,Jb,dJb,ddq,dq, USE_SYM)
 % Implements eq.(18) in Mueller Dynamics, for spatial
 % dV_i_s_dt1 is the 1st "="
 % dV_i_s_dt2 is the 2nd "="
@@ -63,5 +63,5 @@ dV_i_s_dt2 = dV_i_s2;
 
 %% Body Velocity twists
 % for i=4(the {T} frame)
-dV_i_b1 = Jb(:,:,4) * ddq + dJb * dq;
+dV_i_b1 = dJb *
 end
