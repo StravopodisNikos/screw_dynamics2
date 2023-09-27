@@ -1,7 +1,20 @@
-function [Jbsli,Jbsli_427] = Jbody_CoM_3DoF_sym(xi_ai, exp_ai, gsli0, i)
+function [Jbsli,Jbsli_427] = Jbody_CoM_3DoF_sym(xi_ai, q, gsli0, i, USE_SYM)
+% [26-9-23] No bug found, both answers the same, check is ok
+% [27-9-23] Added USE_SYM for integration in numeric calculations
+%           Inserted exp_ai computation in the function
 
-Jbsli = sym(zeros(6,3),'r');
-Jbsli_427 = sym(zeros(6,3),'r');
+if (USE_SYM)
+    Jbsli = sym(zeros(6,3),'r');
+    Jbsli_427 = sym(zeros(6,3),'r');
+else
+    Jbsli = zeros(6,3);
+    Jbsli_427 = zeros(6,3);    
+end
+
+% Generate the exponentials
+exp_ai(:,:,1) = twistexp(xi_ai(:,1),q(1));
+exp_ai(:,:,2) = twistexp(xi_ai(:,2),q(2));
+exp_ai(:,:,3) = twistexp(xi_ai(:,3),q(3));
 
 % Based on eq. p.168
 if i==1
@@ -15,7 +28,6 @@ elseif i==3
     Jbsli(:,3) = inv(ad(exp_ai(:,:,3)*gsli0(:,:,3)))*xi_ai(:,3);
 end
 
-% [11-2-23] Calculation error-Don't use result!
 % Based on eq.4.27 p.176
 Pi(:,:,1) = eye(4); Pi(:,:,2) = eye(4);% dummy
 
@@ -34,7 +46,5 @@ elseif i == 3
     end        
 end
     
-
-
-Jbsli_error = Jbsli-Jbsli_427;
+% Jbsli_error = Jbsli-Jbsli_427;
 end

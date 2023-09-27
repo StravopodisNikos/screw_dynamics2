@@ -1,11 +1,24 @@
-function [Mij_429,delta_Mij_thetak_429,Cij_429,Ck,Gamma_ijk] = compute_Mij_429_3DoF_2_sym(xi_ai, exp_ai, Pi, gsli0, Mi_b, theta_dot)
+function [Mij_429,delta_Mij_thetak_429,Cij_429,Ck,Gamma_ijk] = compute_Mij_429_3DoF_2_sym(xi_ai, q, Pi, gsli0, Mi_b, theta_dot, USE_SYM)
 % Computes Manipulator Inertia Matrix based on eq.4.29a p.176
 % [29-4-21] Computes Coriolis Matric,Christoffel symbols and Ck(q) defined in Loria
+% [27-9-23] Added USE_SYM for integration in numeric calculations
 
 n_Dof = size(xi_ai,2); % extract number of links
-Mij_429 = sym(zeros(n_Dof),'r');
-Cij_429 = sym(zeros(n_Dof),'r');
-dM2C = sym(zeros(n_Dof),'r');
+
+if (USE_SYM)
+    Mij_429 = sym(zeros(n_Dof),'r');
+    Cij_429 = sym(zeros(n_Dof),'r');
+    dM2C = sym(zeros(n_Dof),'r');
+else
+    Mij_429 = zeros(n_Dof);
+    Cij_429 = zeros(n_Dof);
+    dM2C = zeros(n_Dof);    
+end
+
+% Generate the exponentials
+exp_ai(:,:,1) = twistexp(xi_ai(:,1),q(1));
+exp_ai(:,:,2) = twistexp(xi_ai(:,2),q(2));
+exp_ai(:,:,3) = twistexp(xi_ai(:,3),q(3));
 
 i = n_Dof;
 j = n_Dof;
@@ -63,6 +76,6 @@ for c_i=1:i
         end
     end
 end
-check = isskew(simplify(dM2C));
+% check = isskew(simplify(dM2C));
 
 end
