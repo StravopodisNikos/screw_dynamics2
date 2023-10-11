@@ -9,17 +9,17 @@ Delta_q(3) = q(3) - qold(3);
 [U_q,~] = calculatePotentialEnergyArithmetic(q, xi_ai, gsli0, Mi, nDoF ,nD, vert_axis);
 Delta_U = U_q - Uold;
 
-if abs(Delta_q(1)) > 0.001
+if abs(Delta_q(1)) > 0.0001
     g_q(1) = Delta_U / Delta_q(2);
 else
     g_q(1) = 0;
 end
-if abs(Delta_q(2)) > 0.001
+if abs(Delta_q(2)) > 0.0001
     g_q(2) = Delta_U / Delta_q(2);
 else
     g_q(2) = 0;
 end
-if abs(Delta_q(3)) > 0.001
+if abs(Delta_q(3)) > 0.0001
     g_q(3) = Delta_U / Delta_q(3);
 else
     g_q(3) = 0;

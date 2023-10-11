@@ -34,7 +34,7 @@ for i=1:nDoF
         
     for k=1:i
         for j=k+1:i
-            dV2 = dV2 + liebracket_426_new2(Js(:,k), Js(:,j)) * dq(j) * dq(k) ;
+            dV2 = dV2 + liebracket_426_new(Js(:,k), Js(:,j)) * dq(j) * dq(k) ;
         end
     end
     

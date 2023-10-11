@@ -19,19 +19,27 @@ end
 
 % Implements the FIRST (=) of eq.(17)
 for j=1:nDoF
-    dJ1 = sym(zeros(6,1),'d');
+    if (USE_SYM)
+        dJ1 = sym(zeros(6,1),'d');
+    else
+        dJ1 = zeros(6,1);
+    end
     for k=1:j
-        dJ1 = dJ1 + liebracket_426_new2(Js(:,k), Js(:,j)) * dq(k);
+        dJ1 = dJ1 + liebracket_426_new(Js(:,k), Js(:,j)) * dq(k);
     end
     dJs_j1_dt(:,j) = dJ1;
 end
 % Implements the SECOND (=) of eq.(17) -> WRONG ANSWER
 for j=1:nDoF
-    SJ = sym(zeros(6,1),'d');
+    if (USE_SYM)
+        SJ = sym(zeros(6,1),'d');
+    else
+        SJ = zeros(6,1);
+    end
     for k=1:j
         SJ = SJ + Js(:,k);
     end
-    dJs_j2_dt(:,j) = liebracket_426_new2(SJ,Js(:,j)) * dq(k);
+    dJs_j2_dt(:,j) = liebracket_426_new(SJ,Js(:,j)) * dq(k);
 end
 % Implements the THIRD (=) of eq.(17)
 % Removed because i need only the last velocity twist, so Vs is 6x1 only,
