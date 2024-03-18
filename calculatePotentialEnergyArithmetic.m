@@ -1,4 +1,4 @@
-function [U,error_code] = calculatePotentialEnergyArithmetic(q, xi_ai, g_sli0, Mi, nDoF ,nD, vert_axis)
+function [Ul,error_code] = calculatePotentialEnergyArithmetic(q, xi_ai, g_sli0, Mi, nDoF ,nD, vert_axis)
 error_code = 0; % all is good
 
 % [11-2-23] Updated to work for 3 dof no-smm robots
@@ -42,13 +42,10 @@ else
     error_code = 2;
 end
 % Given eq.(7.35)/Siciliano
-U  = 0;
-ml = zeros(nDoF,1);
 Ul = zeros(nDoF,1);
 for i=1:nDoF
     ml(i) = Mi(1,1,i);
     Ul(i) = - ml(i) * g' * g_sli(1:nDoF,4,i);
-    U = U + Ul(i);
 end
 
 end

@@ -24,7 +24,9 @@ c_j = j;
             [Akj] = compute_Aij_for_Ji_427_3DoF(exp_ai, Pi, k, c_j);
             Lie_Br_2 = liebracket_426_new(Akj*xi_ai(:,c_j), xi_ai(:,k));
             
-             Ml = ad(inv(gsli0(:,:,add)))'*Mi_b(:,:,add)*ad(inv(gsli0(:,:,add)));
+            % [13-2-24] BUG found! Tf to {S} is executed during assembly
+%              Ml = ad(inv(gsli0(:,:,add)))'*Mi_b(:,:,add)*ad(inv(gsli0(:,:,add)));
+             Ml = Mi_b(:,:,add);
              
             delta_Mij_thetak_429 = delta_Mij_thetak_429 + (Lie_Br_1'*Alk'*Ml*Alj*xi_ai(:,c_j) + xi_ai(:,c_i)'*Ali'*Ml*Alk*Lie_Br_2);
         end

@@ -30,12 +30,14 @@ for c_i=1:i
             [Aij_1] = compute_Aij_for_Ji_427_3DoF(exp_ai, Pi, add, c_i);
             [Aij_2] = compute_Aij_for_Ji_427_3DoF(exp_ai, Pi, add, c_j);
             
-            Ml = ad(inv(gsli0(:,:,add)))'*Mi_b(:,:,add)*ad(inv(gsli0(:,:,add)));
+            % [13-2-24] BUG found! Tf to {S} is executed during assembly
+%             Ml = ad(inv(gsli0(:,:,add)))'*Mi_b(:,:,add)*ad(inv(gsli0(:,:,add)));
+            Ml = Mi_b(:,:,add);
             Mij_429(c_i,c_j) = Mij_429(c_i,c_j) + xi_ai(:,c_i)'*Aij_1'*Ml*Aij_2*xi_ai(:,c_j);
         end
         
         % Compute  δ(Mij)/δ(θk) for all θk for each Mij
-        Cij_429(c_i,c_j) = 0;
+%         Cij_429(c_i,c_j) = 0;
         for k=1:n_Dof
             % Mass matrix partial derivatives given in eq.4.29,p176 Murray
             [delta_Mij_thetak_429(c_i,c_j,k)] = compute_delta_Mij_thetak_429_3DoF_2(xi_ai, exp_ai, Pi, gsli0, Mi_b, c_i,  c_j,   k);
