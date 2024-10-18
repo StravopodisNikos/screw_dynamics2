@@ -1,8 +1,0 @@
-function [g_sp] = calculateGravityVectorAnalyticalSpatial(q, xi_ai, Jsg, mi)
-g = [0 0 g_earth]';
-Fgi_s(:,1) = mi(1) .* g;
-Fgi_s(:,2) = mi(2) .* g;
-Fgi_s(:,3) = mi(3) .* g;
-
-tau_g_1_s = Jsg(:,:,1)' * 
-end

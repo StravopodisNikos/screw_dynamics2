@@ -13,8 +13,8 @@ gsli(:,:,2) = exp_ai(:,:,1) * exp_ai(:,:,2) *gsli0(:,:,2);
 gsli(:,:,3) = exp_ai(:,:,1) * exp_ai(:,:,2) * exp_ai(:,:,3) *gsli0(:,:,3);
 gst = exp_ai(:,:,1) * exp_ai(:,:,2) * exp_ai(:,:,3) *gst0;
 
-% tau_g_1_s = Jsg(1:3,:,1)' * Fgi_s(:,1);
-% tau_g_2_s = Jsg(1:3,:,2)' * Fgi_s(:,2);
-% tau_g_3_s = Jsg(1:3,:,3)' * Fgi_s(:,3);
-% g_sp = tau_g_1_s + tau_g_2_s + tau_g_3_s;
+tau_g_1_s = Jsg(1:3,:,1)' * Fgi_s(:,1);
+tau_g_2_s = Jsg(1:3,:,2)' * Fgi_s(:,2);
+tau_g_3_s = Jsg(1:3,:,3)' * Fgi_s(:,3);
+g_sp = tau_g_1_s + tau_g_2_s + tau_g_3_s;
 end

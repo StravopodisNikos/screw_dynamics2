@@ -15,13 +15,10 @@ gsli(:,:,3) = exp_ai(:,:,1) * exp_ai(:,:,2) * exp_ai(:,:,3) *gsli0(:,:,3);
 
 % % It is VERY IMPORTANT to set the orientation of the COM tf!
 % g_bd = - Jbg(:,:,1)' * ( gsli(1:3,1:3,1) * mi(1) * g ) - Jbg(:,:,2)' *( gsli(1:3,1:3,2) * mi(2) * g ) - Jbg(:,:,3)' *( gsli(1:3,1:3,3) * mi(3) * g ) ;
-g_bd_1 = - Jbg(:,:,1)' * ( gsli(1:3,1:3,1) * (mi(1)) * g ) ;
-g_bd_2 = - Jbg(:,:,2)' * ( gsli(1:3,1:3,2) * (mi(2)) * g ) ;
-g_bd_3 = - Jbg(:,:,3)' * ( gsli(1:3,1:3,3) * mi(3) * g ) ;
-g_bd(1,1) = g_bd_1(1);
-g_bd(2,1) = g_bd_2(2);% + g_bd_3(2);
-g_bd(3,1) = g_bd_3(3);
-% g_bd = g_bd_1 + g_bd_2 + g_bd_3;% fucks j1
+g_bd(1,1) = - Jbg(:,1,1)' * ( gsli(1:3,1:3,1) * mi(1) * g );
+g_bd(2,1) = - Jbg(:,2,1)' * ( gsli(1:3,1:3,1) * mi(1) * g ) - Jbg(:,2,2)' * ( gsli(1:3,1:3,2) * mi(2) * g ) - Jbg(:,2,3)' * ( gsli(1:3,1:3,3) * mi(3) * g );
+% g_bd(3,1) = - Jbg(:,3,3)' * ( gsli(1:3,1:3,3) * mi(3) * g ); % must be always the same as below because columns used are 0!
+g_bd(3,1) = - Jbg(:,3,1)' * ( gsli(1:3,1:3,1) * mi(1) * g ) - Jbg(:,3,2)' * ( gsli(1:3,1:3,2) * mi(2) * g ) - Jbg(:,3,3)' * ( gsli(1:3,1:3,3) * mi(3) * g );
 
 % g_bd_1_1 = - Jbg(:,1,1)' * ( gsli(1:3,1:3,1) * (mi(1)) * g );
 % g_bd(1,1) = g_bd_1_1;

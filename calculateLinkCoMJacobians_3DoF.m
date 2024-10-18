@@ -16,14 +16,20 @@ exp_ai(:,:,3) = twistexp(xi_ai(:,3),q(3));
 
 % Based on eq. p.168
 if i==1
-    Jbsli(:,1) = inv(ad(exp_ai(:,:,1)*gsli0(:,:,1)))*xi_ai(:,1);
+%     Jbsli(:,1) = inv(ad(exp_ai(:,:,1)*gsli0(:,:,1)))*xi_ai(:,1);
+    Jbsli(:,1) = (ad(exp_ai(:,:,1)*gsli0(:,:,1)))\xi_ai(:,1);
 elseif i==2
-    Jbsli(:,1) = inv(ad(exp_ai(:,:,1)*exp_ai(:,:,2)*gsli0(:,:,2)))*xi_ai(:,1);
-    Jbsli(:,2) = inv(ad(exp_ai(:,:,2)*gsli0(:,:,2)))*xi_ai(:,2);
+%     Jbsli(:,1) = inv(ad(exp_ai(:,:,1)*exp_ai(:,:,2)*gsli0(:,:,2)))*xi_ai(:,1);
+%     Jbsli(:,2) = inv(ad(exp_ai(:,:,2)*gsli0(:,:,2)))*xi_ai(:,2);
+    Jbsli(:,1) = (ad(exp_ai(:,:,1)*exp_ai(:,:,2)*gsli0(:,:,2)))\xi_ai(:,1);
+    Jbsli(:,2) = (ad(exp_ai(:,:,2)*gsli0(:,:,2)))\xi_ai(:,2);
 elseif i==3
-    Jbsli(:,1) = inv(ad(exp_ai(:,:,1)*exp_ai(:,:,2)*exp_ai(:,:,3)*gsli0(:,:,3)))*xi_ai(:,1);
-    Jbsli(:,2) = inv(ad(exp_ai(:,:,2)*exp_ai(:,:,3)*gsli0(:,:,3)))*xi_ai(:,2);
-    Jbsli(:,3) = inv(ad(exp_ai(:,:,3)*gsli0(:,:,3)))*xi_ai(:,3);
+%     Jbsli(:,1) = inv(ad(exp_ai(:,:,1)*exp_ai(:,:,2)*exp_ai(:,:,3)*gsli0(:,:,3)))*xi_ai(:,1);
+%     Jbsli(:,2) = inv(ad(exp_ai(:,:,2)*exp_ai(:,:,3)*gsli0(:,:,3)))*xi_ai(:,2);
+%     Jbsli(:,3) = inv(ad(exp_ai(:,:,3)*gsli0(:,:,3)))*xi_ai(:,3);
+    Jbsli(:,1) = (ad(exp_ai(:,:,1)*exp_ai(:,:,2)*exp_ai(:,:,3)*gsli0(:,:,3)))\xi_ai(:,1);
+    Jbsli(:,2) = (ad(exp_ai(:,:,2)*exp_ai(:,:,3)*gsli0(:,:,3)))\xi_ai(:,2);
+    Jbsli(:,3) = (ad(exp_ai(:,:,3)*gsli0(:,:,3)))\xi_ai(:,3);
 end
 
 % Based on eq.4.27 p.176
